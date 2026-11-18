@@ -49,3 +49,24 @@
 7. Verify robotic/bariatric independent practice claims (website deliberately says *exposure*).
 
 **Result:** Site and profile documentation updated with user-supplied photos and unit/offline-render checks completed in ChatGPT. **Full reference-site parity and Mac verification remain blocked.**
+
+
+## Railway hosted preview and browser checks (18 Nov 2026)
+
+- **Repository:** mayuringle05/kunal-doctor
+- **Feature branch:** `feat/railway-doctor-deploy-20261118`
+- **Verified code SHA:** `4975d55a28a73ba3d91373a1e884bbab6e206464`
+- **Railway project:** `13bae324-a378-4b82-a451-999713689e91`
+- **Service:** `7f24c15e-43ad-45e6-817b-d9a28a81c80b`
+- **Environment:** `e6d8a157-0082-4595-8b38-5643bffa4728` (production environment of the isolated doctor-only project)
+- **Successful deployment:** `bbb03d5a-6675-4985-9dac-db578668e096`, status `SUCCESS`
+- **Public preview:** https://kunal-doctor-web-production.up.railway.app/
+- **Configuration:** Dockerfile, Python static server on `PORT`, Railway healthcheck `/`, app sleeping enabled, 0.25 vCPU and 0.25 GB memory limits.
+- **Initial failure:** `a3f91906-fbf0-426a-b75b-40bfad6c88bc` pulled the empty `main` commit `ea54d853` and failed Railpack detection. Corrected the GitHub source selection and pinned `4975d55`; second deployment succeeded.
+- **Railway build:** `RUN python3 build.py` printed `Built 3 pages into /app/dist (PUBLIC=False, SITE_URL=unset)`; container started successfully.
+- **Railway live HTTP logs:** `/`, `/about/`, `/contact/`, `/assets/site.css`, `/assets/site.js`, `/assets/favicon.svg`, and all six responsive WebP assets returned HTTP 200 (37 observed requests; no 4xx/5xx among them).
+- **REA live UI audit:** independently opened Home, About and Contact on desktop (1440px) and mobile (390px), confirming the actual page titles, H1 headings and site navigation. Live screenshots saved in the owner's REA audit folder `/Users/mayuringale/rea-public-ui-audits/kunal-doctor-web-production-up-railway-app/` under audit IDs `2026-11-18T18-20-22-315Z`, `2026-11-18T18-21-06-968Z`, and `2026-11-18T18-21-27-581Z`. Browser output proved page structure and server reachability; **pixel contents of these live Mac screenshots were not directly retrieved into ChatGPT**.
+- **ChatGPT unit tests:** `python3 -m unittest discover -s tests -v` ran 9 tests: all passed.
+- **ChatGPT offline Playwright:** 9/9 assertions passed across desktop/mobile Home, About, Contact, lazy-image decoding, horizontal-overflow check, mobile menu open/Escape, and form validation/WhatsApp URL generation. Offline rendered screenshots were actually opened and visually reviewed in ChatGPT. Local origin `page.goto` was blocked by the container administrator; these checks used `page.set_content` and inlined local assets.
+- **Publication:** deliberately `noindex,nofollow` because OPD days, exact clinic location and final credential/photo permissions still require owner/doctor review. A WhatsApp enquiry URL is not a confirmed appointment.
+- **Scope:** no changes to AVENIME/COSMO EDU, no GitHub hosted CI, and no payment API. Railway is usage-metered; sleeping and resource limits reduce usage but do not guarantee zero charges.
