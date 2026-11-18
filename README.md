@@ -82,3 +82,10 @@ needed for the application code itself.
 
 A deployment is not proof of the appointment flow. Verify the public pages, image
 assets, mobile menu and WhatsApp redirect with real HTTP/browser receipts.
+
+
+## Current deployed preview (18 Nov 2026)
+
+Site: https://kunal-doctor-web-production.up.railway.app/
+
+Railway is connected to the doctor-only project on the deployment feature branch. Successful deployment of `4975d55` has been verified with 200 responses for all three pages and all six photos. Desktop/mobile public-URL inspection and offline Playwright interactions are recorded in `docs/COSMO_CAPABILITY_PROOFS.md`. The site is intentionally `noindex` until the remaining medical profile/clinic facts are approved. Railway usage is metered.
