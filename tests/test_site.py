@@ -43,7 +43,7 @@ class DoctorSiteTests(unittest.TestCase):
     def test_data_contact_matches_resume(self):
         self.assertEqual(DATA['phone_e164'],'+918793529690')
         self.assertEqual(DATA['email'],'krunalkumbhre010@gmail.com')
-        self.assertEqual(DATA['name_marathi'],'डॉ. कुणाल कुंभरे')
+        self.assertEqual(DATA['name_marathi'],'डॉ. क्रुणाल कुंभरे')
         self.assertEqual(len(DATA['experience']),3)
         self.assertEqual(len(DATA['education']),3)
 
@@ -69,7 +69,7 @@ class DoctorSiteTests(unittest.TestCase):
                     'The supplied résumé']:
             with self.subTest(bad=bad):
                 self.assertNotIn(bad, home+about)
-        self.assertIn('training and operating-room exposure',home)
+        self.assertIn('operating-room exposure to robotic GI',home)
         self.assertIn('Completed FNB Fellowship', about)
         self.assertIn('FIAGES', home)
         self.assertIn('FIAGES', about)
@@ -82,7 +82,9 @@ class DoctorSiteTests(unittest.TestCase):
         form=(DIST/'contact/index.html').read_text(encoding='utf-8')
         js=(DIST/'assets/site.js').read_text(encoding='utf-8')
         self.assertIn('id="appointment-form"',form)
-        self.assertIn('does not store the form',form)
+        self.assertIn('id="patient-concern"',form)
+        self.assertNotIn('id="visit-type"',form)
+        self.assertIn('Nothing is stored on this website',form)
         self.assertIn('data-whatsapp-number="918793529690"',form)
         self.assertIn("'https://wa.me/' + whatsappNumber",js)
         self.assertIn('encodeURIComponent(message)',js)
@@ -121,13 +123,54 @@ class DoctorSiteTests(unittest.TestCase):
                     self.assertTrue(image_path.read_bytes()[:4]==b'RIFF')
                     self.assertLess(image_path.stat().st_size,300_000)
 
+    def test_care_pages_and_links_are_dedicated(self):
+        home=(DIST/'index.html').read_text(encoding='utf-8')
+        about=(DIST/'about/index.html').read_text(encoding='utf-8')
+        self.assertIn('डॉ. क्रुणाल कुंभरे', home)
+        self.assertNotIn('Robotic surgery exposure</h3>', home)
+        self.assertNotIn('Robotic surgery information describes',home)
+        self.assertIn('operating-room exposure to robotic GI',about)
+        self.assertIn('Surgical care tailored',home)
+        self.assertEqual(len(DATA['care_areas']),6)
+        for area in DATA['care_areas']:
+            with self.subTest(area=area['id']):
+                link=f'care/{area["id"]}/index.html'
+                self.assertIn(f'href="{link}"',home)
+                detail=(DIST/link).read_text(encoding='utf-8')
+                self.assertIn(__import__('html').escape(area['title']),detail)
+                self.assertIn('content="noindex,nofollow"',detail)
+                self.assertIn('contact/index.html?care=',detail)
+                self.assertIn('Common reasons for consultation',detail)
+
+    def test_missing_clinic_registration_domain_not_invented(self):
+        about=(DIST/'about/index.html').read_text(encoding='utf-8')
+        contact=(DIST/'contact/index.html').read_text(encoding='utf-8')
+        footer=(DIST/'index.html').read_text(encoding='utf-8')
+        self.assertEqual(DATA['mmc_registration_number'],'')
+        self.assertEqual(DATA['opd_days'],'')
+        self.assertEqual(DATA['clinic_address'],'')
+        self.assertNotIn('Mon–Sat',contact)
+        self.assertNotIn('iframe',contact)
+        self.assertNotIn('Reg. No.',footer)
+        self.assertNotIn('Reg. No.',about)
+        self.assertNotIn('drkrunalkumbhare.com',footer)
+
+    def test_motion_and_accessibility(self):
+        css=(DIST/'assets/site.css').read_text(encoding='utf-8')
+        js=(DIST/'assets/site.js').read_text(encoding='utf-8')
+        self.assertIn('prefers-reduced-motion:reduce',css)
+        self.assertIn('IntersectionObserver',js)
+        self.assertIn('motion-ready',js)
+        self.assertIn('opacity:1!important',css)
+        self.assertIn('class="care-card__hit"', (DIST/'index.html').read_text(encoding='utf-8'))
+
     def test_internal_links_exist(self):
-        for rel in ['index.html','about/index.html','contact/index.html']:
+        for rel in ['index.html','about/index.html','contact/index.html'] + [f'care/{a["id"]}/index.html' for a in DATA['care_areas']]:
             page_path=DIST/rel
             parser=Tags();parser.feed(page_path.read_text())
             for url in parser.links:
                 if not url or url.startswith(('#','tel:','mailto:','https://','http://')):continue
-                path_no_hash=url.split('#',1)[0]
+                path_no_hash=url.split('#',1)[0].split('?',1)[0]
                 if not path_no_hash:continue
                 resolved=(page_path.parent/path_no_hash).resolve()
                 with self.subTest(page=rel,link=url):
