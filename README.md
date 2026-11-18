@@ -1,6 +1,6 @@
 # Dr. Krunal Kumbhare — Static Doctor Portfolio
 
-A **self-contained, dependency-free, three-page static website** based on the supplied résumé and introductory nameplate. The visual direction is inspired by [Dr. Amara](https://dr-amara-wbs.framer.website/): indigo + pale-blue palette, editorial serif typography, rounded navigation and appointment CTAs. The site uses original HTML/CSS/JS and its own graphic treatment; it does **not** copy Framer's original source code, images, testimonials or third-party assets.
+A **self-contained, dependency-free, nine-page static website** based on the supplied résumé and introductory nameplate. The visual direction is inspired by [Dr. Amara](https://dr-amara-wbs.framer.website/): indigo + pale-blue palette, editorial serif typography, rounded navigation and appointment CTAs. The site uses original HTML/CSS/JS and its own graphic treatment; it does **not** copy Framer's original source code, images, testimonials or third-party assets.
 
 ## Included
 
@@ -8,9 +8,9 @@ A **self-contained, dependency-free, three-page static website** based on the su
 - `content/doctor.json` — structured doctor facts, experience, specialties and contact details driving generated pages. Generic editorial headings and layout text remain in `build.py`.
 - `assets/photos/*.webp` — three user-supplied photographs, optimized to two responsive WebP widths each. The corridor portrait is used in the hero, the notebook image alongside the professional profile, and the consultation image beside the appointment guidance.
 - `content/original-intro-card.jpeg` — original image, kept privately as a research/reference source, **not** included in the public `dist/` output.
-- `build.py` — zero-dependency static generator, escaping user content and producing three separate accessible HTML pages.
+- `build.py` — zero-dependency static generator, escaping user content and producing nine separate accessible HTML pages.
 - `assets/site.css` — responsive design without frameworks or remote font requests.
-- `assets/site.js` — mobile nav and static WhatsApp appointment enquiry (no database, tracking or storage).
+- `assets/site.js` — mobile nav, reduced-motion-safe scroll animation, and three-field callback request via WhatsApp (no database, tracking or storage).
 - `dist/` — ready-to-host static files, **draft noindex** by default.
 - `tests/test_site.py` — source integrity, pages, links, privacy and cautious medical claims.
 - `docs/COSMO_CAPABILITY_PROOFS.md` — local verification receipts and remaining proof blockers.
@@ -75,7 +75,7 @@ needed for the application code itself.
 - **Service source:** this GitHub repository and the approved feature branch
 - **Builder:** Dockerfile
 - **Health endpoint:** `/` (static homepage)
-- **Public paths:** `/`, `/about/`, `/contact/` and `/assets/...`
+- **Public paths:** `/`, `/about/`, `/contact/`, six `/care/<slug>/` routes and `/assets/...`
 - **Publication:** default `noindex,nofollow` until verified clinic details
 - **Costs:** Railway meters runtime resources. Check the existing plan's credit
   and budget before enabling a service; this repo does not enforce a zero-cost cap.
@@ -89,3 +89,8 @@ assets, mobile menu and WhatsApp redirect with real HTTP/browser receipts.
 Site: https://kunal-doctor-web-production.up.railway.app/
 
 Railway is connected to the doctor-only project on the deployment feature branch. Successful deployment of `4975d55` has been verified with 200 responses for all three pages and all six photos. Desktop/mobile public-URL inspection and offline Playwright interactions are recorded in `docs/COSMO_CAPABILITY_PROOFS.md`. The site is intentionally `noindex` until the remaining medical profile/clinic facts are approved. Railway usage is metered.
+
+
+## Refined doctor portfolio feature branch (19 Nov 2026)
+
+The optional release update is in `feat/elegant-motion-care-pages-20261119` and is **not currently deployed on `main`**. It adds six patient-oriented care detail pages, the corrected Marathi hero name, gentle reduced-motion-safe animations, a cleaner hero and a three-field WhatsApp callback handoff. Read `docs/RELEASE_NOTES_20261119.md` for the precise fields awaiting confirmation. The live Railway site continues to serve the previous `main` deployment until the change receives live browser verification and release approval.
