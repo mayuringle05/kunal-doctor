@@ -1,0 +1,148 @@
+{
+  "name": "Dr. Krunal Kumbhare",
+  "name_marathi": "डॉ. कुणाल कुंभरे",
+  "short_name": "Dr. Kumbhare",
+  "brand_subtitle": "GENERAL & LAPAROSCOPIC SURGERY",
+  "initials": "KK",
+  "tagline": "Consultant Laparoscopic Surgeon",
+  "qualifications": "MBBS, MS (General Surgery)",
+  "fellowship": "FNB (Minimal Access Surgery) · FIAGES",
+  "city": "Nagpur",
+  "state": "Maharashtra",
+  "country": "India",
+  "phone_display": "+91 8793529690",
+  "phone_e164": "+918793529690",
+  "email": "krunalkumbhre010@gmail.com",
+  "opd_time": "7:00 PM – 10:00 PM",
+  "opd_label": "Evening OPD · Days to be confirmed",
+  "experience_statement": "5+ years",
+  "experience_description": "in elective, emergency and trauma surgery",
+  "registration": "Maharashtra Medical Council registered",
+  "hero_heading": "General surgery and minimal access procedures in Nagpur.",
+  "hero_description": "Dr. Kumbhare completed his FNB fellowship in Minimal Access Surgery at Fortis Memorial Research Institute, Gurugram. He works across general, gastrointestinal and laparoscopic surgery.",
+  "about_short": "Dr. Krunal Kumbhare is a general and laparoscopic surgeon in Nagpur. He completed an FNB fellowship in Minimal Access Surgery at Fortis Memorial Research Institute, Gurugram, after working as a senior resident in Pune and Nagpur.",
+  "about_long": "His surgical experience includes elective, emergency and trauma cases. At Fortis, his training covered advanced laparoscopy, single-incision techniques, bariatric perioperative care and exposure to robotic GI, colorectal and abdominal wall procedures. He has also worked in surgical wards, ICUs and operating theatres and taught undergraduate medical students.",
+  "care_areas": [
+    {
+      "id": "laparoscopic",
+      "index": "01",
+      "eyebrow": "Minimal access",
+      "title": "Laparoscopic surgery",
+      "description": "Laparoscopic procedures and advanced techniques covered during his completed FNB fellowship.",
+      "icon": "scope"
+    },
+    {
+      "id": "gi",
+      "index": "02",
+      "eyebrow": "Gastrointestinal",
+      "title": "GI surgery",
+      "description": "GI surgery, with fellowship training that included foregut, hepatobiliary and colorectal procedures.",
+      "icon": "stomach"
+    },
+    {
+      "id": "hernia",
+      "index": "03",
+      "eyebrow": "Abdominal wall",
+      "title": "Hernia surgery",
+      "description": "Hernia surgery and training exposure to abdominal wall reconstruction.",
+      "icon": "layers"
+    },
+    {
+      "id": "sils",
+      "index": "04",
+      "eyebrow": "Single incision",
+      "title": "Single-incision surgery (SILS)",
+      "description": "Trained in single-incision laparoscopic techniques and presented work on laparoscopic cholecystectomy.",
+      "icon": "target"
+    },
+    {
+      "id": "proctology",
+      "index": "05",
+      "eyebrow": "Colorectal care",
+      "title": "Laser proctology",
+      "description": "Performed laser proctology procedures during his general surgery residency in Pune.",
+      "icon": "spark"
+    },
+    {
+      "id": "robotics",
+      "index": "06",
+      "eyebrow": "Robotic training",
+      "title": "Robotic surgery exposure",
+      "description": "Robotic operating-room training included docking, port placement and bedside assistance.",
+      "icon": "robot"
+    }
+  ],
+  "experience": [
+    {
+      "role": "FNB Fellowship · Minimal Access Surgery",
+      "institution": "Fortis Memorial Research Institute (FMRI), Gurugram",
+      "dates": "From Jul 2024 · completed",
+      "highlights": [
+        "Advanced laparoscopic and minimal access surgery training",
+        "Bariatric surgery exposure and perioperative care",
+        "Robotic GI, bariatric, colorectal and abdominal wall surgery exposure",
+        "Robotic docking, port placement and bedside assistance",
+        "Mentorship under Prof. Dr. A. K. Kriplani and team"
+      ]
+    },
+    {
+      "role": "Senior Resident — General Surgery",
+      "institution": "Bharat Ratna Atal Bihari Vajpayee Medical College, Pune",
+      "dates": "Oct 2023 – Jun 2024",
+      "highlights": [
+        "Independent elective and emergency surgical patient management",
+        "Laser proctology procedures",
+        "Ward, ICU and OT management",
+        "Undergraduate teaching and resident supervision"
+      ]
+    },
+    {
+      "role": "Senior Resident — General Surgery",
+      "institution": "Government Medical College & Hospital, Nagpur",
+      "dates": "Dec 2021 – Oct 2022",
+      "highlights": [
+        "Emergency and trauma surgical management",
+        "Surgical ward and ICU management",
+        "Supervision of junior residents and interns"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Completed FNB Fellowship · Minimal Access Surgery",
+      "institution": "Fortis Memorial Research Institute, Gurugram",
+      "year": "Started Jul 2024 · completed"
+    },
+    {
+      "degree": "MS — General Surgery",
+      "institution": "Government Medical College, Nagpur",
+      "year": "2021"
+    },
+    {
+      "degree": "MBBS",
+      "institution": "Government Medical College, Akola",
+      "year": "2016"
+    }
+  ],
+  "academic_work": [
+    {
+      "title": "Single Incision Laparoscopic Cholecystectomy",
+      "description": "Presentation at a surgical academic forum, with a certificate of recognition (as stated in résumé)."
+    }
+  ],
+  "certifications_affiliations": [
+    "ACSCON 2021 — American College of Surgeons (India Chapter)",
+    "Johnson & Johnson — Surgical Simulation Training",
+    "Association of Surgeons, Nagpur",
+    "FALS — Colorectal Surgery (2018)",
+    "FIAGES"
+  ],
+  "pending_verification": [
+    "Confirm official credential styling of FNB (NBE) and FIAGES with Dr. Kumbhare before public launch",
+    "OPD days and full clinic address not supplied",
+    "Confirm publication permission for the three supplied doctor photos",
+    "MMC registration number not supplied",
+    "Confirm listed phone number is approved for patient enquiries",
+    "Clarify which robotic and bariatric procedures he personally offers; the supplied résumé documents training/exposure"
+  ]
+}

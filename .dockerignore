@@ -1,0 +1,12 @@
+.git
+.gitignore
+proofs
+__pycache__
+*.pyc
+*.zip
+*.patch
+content/original-intro-card.jpeg
+content/DOCTOR_PROFILE.md
+dist
+tests
+docs
