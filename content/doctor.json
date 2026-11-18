@@ -1,6 +1,6 @@
 {
   "name": "Dr. Krunal Kumbhare",
-  "name_marathi": "डॉ. कुणाल कुंभरे",
+  "name_marathi": "डॉ. क्रुणाल कुंभरे",
   "short_name": "Dr. Kumbhare",
   "brand_subtitle": "GENERAL & LAPAROSCOPIC SURGERY",
   "initials": "KK",
@@ -26,50 +26,80 @@
     {
       "id": "laparoscopic",
       "index": "01",
-      "eyebrow": "Minimal access",
-      "title": "Laparoscopic surgery",
-      "description": "Laparoscopic procedures and advanced techniques covered during his completed FNB fellowship.",
-      "icon": "scope"
+      "eyebrow": "MINIMAL ACCESS",
+      "title": "Laparoscopic Surgery",
+      "description": "Keyhole procedures for gallstones, appendicitis and selected abdominal conditions. Smaller incisions may mean less discomfort and a more comfortable recovery.",
+      "icon": "scope",
+      "conditions": [
+        "Gallstones and gallbladder problems",
+        "Appendicitis",
+        "Selected abdominal conditions"
+      ]
     },
     {
       "id": "gi",
       "index": "02",
-      "eyebrow": "Gastrointestinal",
-      "title": "GI surgery",
-      "description": "GI surgery, with fellowship training that included foregut, hepatobiliary and colorectal procedures.",
-      "icon": "stomach"
+      "eyebrow": "GASTROINTESTINAL",
+      "title": "GI & Hepatobiliary Surgery",
+      "description": "Surgical assessment for digestive tract, gallbladder, liver and colorectal conditions, using open or minimally invasive approaches when appropriate.",
+      "icon": "stomach",
+      "conditions": [
+        "Digestive tract conditions",
+        "Gallbladder and hepatobiliary conditions",
+        "Colorectal conditions"
+      ]
     },
     {
       "id": "hernia",
       "index": "03",
-      "eyebrow": "Abdominal wall",
-      "title": "Hernia surgery",
-      "description": "Hernia surgery and training exposure to abdominal wall reconstruction.",
-      "icon": "layers"
+      "eyebrow": "ABDOMINAL WALL",
+      "title": "Hernia & Abdominal Wall Repair",
+      "description": "Assessment and repair of inguinal, umbilical and incisional hernias. More complex or recurrent defects may need abdominal wall reconstruction.",
+      "icon": "layers",
+      "conditions": [
+        "Inguinal hernia",
+        "Umbilical hernia",
+        "Incisional and recurrent hernia"
+      ]
     },
     {
       "id": "sils",
       "index": "04",
-      "eyebrow": "Single incision",
-      "title": "Single-incision surgery (SILS)",
-      "description": "Trained in single-incision laparoscopic techniques and presented work on laparoscopic cholecystectomy.",
-      "icon": "target"
+      "eyebrow": "SINGLE INCISION",
+      "title": "Single-Incision Surgery (SILS)",
+      "description": "For selected procedures, including some gallbladder operations, a single incision near the navel may be an option. Suitability depends on the case.",
+      "icon": "target",
+      "conditions": [
+        "Selected gallbladder procedures",
+        "Single-incision laparoscopic options",
+        "Surgical suitability assessment"
+      ]
     },
     {
       "id": "proctology",
       "index": "05",
-      "eyebrow": "Colorectal care",
-      "title": "Laser proctology",
-      "description": "Performed laser proctology procedures during his general surgery residency in Pune.",
-      "icon": "spark"
+      "eyebrow": "ANORECTAL CARE",
+      "title": "Laser Proctology",
+      "description": "Evaluation of piles, anal fissures and fistulas, with laser-based treatment considered when clinically suitable. The right treatment depends on the diagnosis.",
+      "icon": "spark",
+      "conditions": [
+        "Piles (haemorrhoids)",
+        "Anal fissures",
+        "Anal fistulas"
+      ]
     },
     {
-      "id": "robotics",
+      "id": "general",
       "index": "06",
-      "eyebrow": "Robotic training",
-      "title": "Robotic surgery exposure",
-      "description": "Robotic operating-room training included docking, port placement and bedside assistance.",
-      "icon": "robot"
+      "eyebrow": "ACUTE & ELECTIVE CARE",
+      "title": "General & Emergency Surgery",
+      "description": "Surgical assessment for acute abdominal conditions, trauma, soft-tissue swellings and abscesses, informed by hospital, operating-theatre and ICU experience.",
+      "icon": "shield",
+      "conditions": [
+        "Acute abdominal conditions",
+        "Soft-tissue swellings and abscesses",
+        "Trauma and emergency surgical care"
+      ]
     }
   ],
   "experience": [
@@ -139,10 +169,17 @@
   ],
   "pending_verification": [
     "Confirm official credential styling of FNB (NBE) and FIAGES with Dr. Kumbhare before public launch",
-    "OPD days and full clinic address not supplied",
     "Confirm publication permission for the three supplied doctor photos",
-    "MMC registration number not supplied",
     "Confirm listed phone number is approved for patient enquiries",
-    "Clarify which robotic and bariatric procedures he personally offers; the supplied résumé documents training/exposure"
-  ]
+    "Clarify which robotic and bariatric procedures he personally offers; the supplied résumé documents training/exposure",
+    "MMC registration number needs documentary confirmation before display",
+    "Clinic or hospital name, precise Nagpur locality, address, OPD days and map link still needed",
+    "Custom domain requires confirmed ownership and DNS access"
+  ],
+  "mmc_registration_number": "",
+  "clinic_name": "",
+  "clinic_locality": "",
+  "clinic_address": "",
+  "clinic_map_embed_url": "",
+  "opd_days": ""
 }

@@ -27,7 +27,7 @@ try:
       page=ctx.new_page()
       console_errors=[]
       page.on('pageerror',lambda error:console_errors.append(str(error)))
-      for path in ['/','/about/','/contact/']:
+      for path in ['/','/about/','/contact/'] + [f'/care/{x}/' for x in ['laparoscopic','gi','hernia','sils','proctology','general']]:
         response=page.goto(origin+path,wait_until='load',timeout=15000)
         page.wait_for_timeout(250)
         name = 'home' if path=='/' else path.strip('/')
@@ -50,11 +50,11 @@ try:
       invalid='Please enter your name' in page.locator('#form-status').inner_text()
       page.locator('#patient-name').fill('Test Person')
       page.locator('#patient-phone').fill('9988776655')
-      page.locator('#visit-type').select_option('Hernia surgery enquiry')
+      page.locator('#patient-concern').fill('Hernia consultation')
       page.evaluate("window.open = (url) => { window.__appointmentUrl = url; return { closed:false }; }")
       page.locator('#appointment-form button').click()
       url=page.evaluate('window.__appointmentUrl')
-      valid=bool(url and 'wa.me/918793529690' in url and 'Test%20Person' in url and 'Hernia%20surgery%20enquiry' in url)
+      valid=bool(url and 'wa.me/918793529690' in url and 'Test%20Person' in url and 'Hernia%20consultation' in url)
       results['checks'].append({'test':'form validation + WhatsApp URL', 'viewport':label,'pass':invalid and valid})
       if not invalid or not valid:results['failures'].append({'test':'form', 'viewport':label,'url':url,'invalid':invalid})
       if console_errors:results['failures'].append({'test':'console', 'viewport':label,'errors':console_errors})

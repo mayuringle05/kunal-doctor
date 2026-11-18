@@ -167,3 +167,7 @@ This is a **draft medical-profile website** based on owner-supplied materials. I
 - **Warm Clinic Consultation:** First consultation section, homepage and Contact page.
 
 Images are optimized to WebP with responsive width choices. These are user-supplied photos; no reference-site person images were copied.
+
+## Website editorial correction (19 November 2026)
+
+The owner requested the Marathi hero subtitle **डॉ. क्रुणाल कुंभरे**, reflecting the English spelling “Krunal”. The intro card’s original printing is retained above as source evidence, not reused on the website. The FNB fellowship is completed according to the owner. The MMC registration number, clinic address, locality, OPD days and owned domain are not supplied; leave them unpopulated and do not guess.
