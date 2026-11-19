@@ -16,4 +16,4 @@ Visual changes: edge-to-edge photo at top, translucent numbered marker, ivory ca
 
 ## Release boundary
 
-No main merge, Railway environment change, paid image CDN or external asset request is required to review the branch. The existing three doctor photographs remain the only card image sources. Run the authorized Mac/REA or isolated preview inspection before a production merge. Continue to keep public indexing disabled until MMC reg
+No main merge, Railway environment change, paid image CDN or external asset request is required to review the branch. The existing three doctor photographs remain the only card image sources. Run the authorized Mac/REA or isolated preview inspection before a production merge. Continue to keep public indexing disabled until MMC registration, clinic address and OPD days are verified.

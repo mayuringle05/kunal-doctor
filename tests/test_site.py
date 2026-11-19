@@ -43,4 +43,158 @@ class DoctorSiteTests(unittest.TestCase):
     def test_data_contact_matches_resume(self):
         self.assertEqual(DATA['phone_e164'],'+918793529690')
         self.assertEqual(DATA['email'],'krunalkumbhre010@gmail.com')
-        self.assertEqual(DATA['name_marathi'],'डॉ.
+        self.assertEqual(DATA['name_marathi'],'डॉ. क्रुणाल कुंभरे')
+        self.assertEqual(len(DATA['experience']),3)
+        self.assertEqual(len(DATA['education']),3)
+
+    def test_three_complete_indexable_structure_pages(self):
+        for rel in ['index.html','about/index.html','contact/index.html']:
+            page=(DIST/rel).read_text(encoding='utf-8')
+            parser=Tags();parser.feed(page)
+            with self.subTest(rel=rel):
+                self.assertEqual(parser.h1,1)
+                self.assertEqual(parser.title,1)
+                self.assertIn('content="noindex,nofollow"',page)
+                self.assertIn(DATA['name'],page)
+                self.assertTrue(any('contact/index.html' in href for href in parser.links))
+                self.assertIn('application/ld+json',page)
+
+    def test_completed_fellowship_and_plain_language(self):
+        home=(DIST/'index.html').read_text(encoding='utf-8')
+        about=(DIST/'about/index.html').read_text(encoding='utf-8')
+        for bad in ['18 yrs','610 reviews','42 papers','Johns Hopkins','Dr. Amara','5.0 rated',
+                    'FNB Fellow ·', 'ongoing in résumé', 'Present (as stated in résumé)',
+                    'Modern surgical care, built on', 'Thoughtful care.',
+                    'a commitment to care.', 'We\'re here to hear from you.',
+                    'The supplied résumé']:
+            with self.subTest(bad=bad):
+                self.assertNotIn(bad, home+about)
+        self.assertIn('operating-room exposure to robotic GI',home)
+        self.assertIn('Completed FNB Fellowship', about)
+        self.assertIn('FIAGES', home)
+        self.assertIn('FIAGES', about)
+        self.assertIn('FNB (Minimal Access Surgery)', home)
+        self.assertIsNone(re.search(r'\bFNB Fellow\b(?!ship)', home + about))
+        self.assertIn('completed', DATA['experience'][0]['dates'].lower())
+        self.assertIn('Completed FNB Fellowship', DATA['education'][0]['degree'])
+
+    def test_contact_is_nonpersistent_whatsapp_handoff(self):
+        form=(DIST/'contact/index.html').read_text(encoding='utf-8')
+        js=(DIST/'assets/site.js').read_text(encoding='utf-8')
+        self.assertIn('id="appointment-form"',form)
+        self.assertIn('id="patient-concern"',form)
+        self.assertNotIn('id="visit-type"',form)
+        self.assertIn('Nothing is stored on this website',form)
+        self.assertIn('data-whatsapp-number="918793529690"',form)
+        self.assertIn("'https://wa.me/' + whatsappNumber",js)
+        self.assertIn('encodeURIComponent(message)',js)
+        self.assertNotIn('fetch(',js)
+        self.assertNotIn('localStorage',js)
+
+    def test_preview_robots_disallow(self):
+        self.assertEqual((DIST/'robots.txt').read_text(),'User-agent: *\nDisallow: /\n')
+        self.assertFalse((DIST/'sitemap.xml').exists())
+
+    def test_supplied_doctor_photos_match_page_context(self):
+        home=(DIST/'index.html').read_text(encoding='utf-8')
+        about=(DIST/'about/index.html').read_text(encoding='utf-8')
+        contact=(DIST/'contact/index.html').read_text(encoding='utf-8')
+        for location, filename, alt in [
+            (home, 'portrait-corridor', 'Dr. Krunal Kumbhare'),
+            (home, 'doctor-notebook', 'notebook'),
+            (home, 'doctor-consultation', 'patient'),
+            (about, 'doctor-notebook', 'notebook'),
+            (contact, 'doctor-consultation', 'patient'),
+        ]:
+            with self.subTest(image=filename):
+                self.assertIn(filename+'-960.webp', location)
+                self.assertIn(alt, location)
+        self.assertNotIn('Professional portrait placeholder',home)
+        self.assertNotIn('Doctor\'s approved photograph required',home)
+        for rel in ['index.html','about/index.html','contact/index.html']:
+            page_path=DIST/rel
+            parser=Tags();parser.feed(page_path.read_text(encoding='utf-8'))
+            for a in parser.images:
+                with self.subTest(page=rel,src=a.get('src','')):
+                    self.assertTrue(a.get('alt'))
+                    self.assertTrue(a.get('width') and a.get('height'))
+                    image_path=(page_path.parent/a['src']).resolve()
+                    self.assertTrue(image_path.is_file(),image_path)
+                    self.assertTrue(image_path.read_bytes()[:4]==b'RIFF')
+                    self.assertLess(image_path.stat().st_size,300_000)
+
+    def test_care_pages_and_links_are_dedicated(self):
+        home=(DIST/'index.html').read_text(encoding='utf-8')
+        about=(DIST/'about/index.html').read_text(encoding='utf-8')
+        self.assertIn('डॉ. क्रुणाल कुंभरे', home)
+        self.assertNotIn('Robotic surgery exposure</h3>', home)
+        self.assertNotIn('Robotic surgery information describes',home)
+        self.assertIn('operating-room exposure to robotic GI',about)
+        self.assertIn('Surgical care tailored',home)
+        self.assertEqual(len(DATA['care_areas']),6)
+        for area in DATA['care_areas']:
+            with self.subTest(area=area['id']):
+                link=f'care/{area["id"]}/index.html'
+                self.assertIn(f'href="{link}"',home)
+                detail=(DIST/link).read_text(encoding='utf-8')
+                self.assertIn(__import__('html').escape(area['title']),detail)
+                self.assertIn('content="noindex,nofollow"',detail)
+                self.assertIn('contact/index.html?care=',detail)
+                self.assertIn('Common reasons for consultation',detail)
+
+    def test_care_cards_use_approved_photography_without_pictograms(self):
+        home=(DIST/'index.html').read_text(encoding='utf-8')
+        css=(DIST/'assets/site.css').read_text(encoding='utf-8')
+        cards=re.findall(r'<article class="care-card[^>]*>(.*?)</article>', home, flags=re.DOTALL)
+        self.assertEqual(len(cards), 6)
+        self.assertNotIn('class="care-icon"', home)
+        for area, card_html in zip(DATA['care_areas'], cards):
+            with self.subTest(area=area['id']):
+                self.assertIn(f'href="care/{area["id"]}/index.html"', card_html)
+                self.assertIn('class="care-card__image"', card_html)
+                self.assertIn('loading="lazy"', card_html)
+                self.assertIn('srcset=', card_html)
+                self.assertIn('alt="Dr. Krunal Kumbhare', card_html)
+                self.assertNotIn('<svg', card_html)
+                match=re.search(r'src="(assets/photos/[^"]+-960\.webp)"', card_html)
+                self.assertIsNotNone(match)
+                self.assertTrue((DIST/match.group(1)).is_file())
+        self.assertIn('object-fit:cover', css)
+        self.assertIn('.care-card__media', css)
+        self.assertIn('prefers-reduced-motion:reduce', css)
+
+    def test_missing_clinic_registration_domain_not_invented(self):
+        about=(DIST/'about/index.html').read_text(encoding='utf-8')
+        contact=(DIST/'contact/index.html').read_text(encoding='utf-8')
+        footer=(DIST/'index.html').read_text(encoding='utf-8')
+        self.assertEqual(DATA['mmc_registration_number'],'')
+        self.assertEqual(DATA['opd_days'],'')
+        self.assertEqual(DATA['clinic_address'],'')
+        self.assertNotIn('Mon–Sat',contact)
+        self.assertNotIn('iframe',contact)
+        self.assertNotIn('Reg. No.',footer)
+        self.assertNotIn('Reg. No.',about)
+        self.assertNotIn('drkrunalkumbhare.com',footer)
+
+    def test_motion_and_accessibility(self):
+        css=(DIST/'assets/site.css').read_text(encoding='utf-8')
+        js=(DIST/'assets/site.js').read_text(encoding='utf-8')
+        self.assertIn('prefers-reduced-motion:reduce',css)
+        self.assertIn('IntersectionObserver',js)
+        self.assertIn('motion-ready',js)
+        self.assertIn('opacity:1!important',css)
+        self.assertIn('class="care-card__hit"', (DIST/'index.html').read_text(encoding='utf-8'))
+
+    def test_internal_links_exist(self):
+        for rel in ['index.html','about/index.html','contact/index.html'] + [f'care/{a["id"]}/index.html' for a in DATA['care_areas']]:
+            page_path=DIST/rel
+            parser=Tags();parser.feed(page_path.read_text())
+            for url in parser.links:
+                if not url or url.startswith(('#','tel:','mailto:','https://','http://')):continue
+                path_no_hash=url.split('#',1)[0].split('?',1)[0]
+                if not path_no_hash:continue
+                resolved=(page_path.parent/path_no_hash).resolve()
+                with self.subTest(page=rel,link=url):
+                    self.assertTrue(resolved.is_file() or (resolved.is_dir() and (resolved/'index.html').exists()),f'Broken link {url} in {rel}')
+
+if __name__=='__main__':unittest.main()
